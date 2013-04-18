@@ -9,17 +9,35 @@
 # can either not specify them, or override them, e.g. auto_now_add=False.
 
 snippet auto
-	${1:FIELDNAME} = models.AutoField(${2})
+	${1:FIELDNAME} = models.AutoField(
+		${2}
+	)
+	
 snippet bool
-	${1:FIELDNAME} = models.BooleanField(${2:default=True})
+	${1:FIELDNAME} = models.BooleanField(
+		${2:default=True}
+	)
 snippet char
-	${1:FIELDNAME} = models.CharField(max_length=${2}${3:, blank=True})
+	${1:FIELDNAME} = models.CharField(
+		${2},
+		max_length=${3:255},
+		${4:blank=True},
+	)
+	
+	
 snippet comma
 	${1:FIELDNAME} = models.CommaSeparatedIntegerField(max_length=${2}${3:, blank=True})
+	
 snippet date
-	${1:FIELDNAME} = models.DateField(${2:auto_now_add=True, auto_now=True}${3:, blank=True, null=True})
+	${1:FIELDNAME} = models.DateField(
+		${2:auto_now_add=True, auto_now=True}
+		${3:, blank=True, null=True}
+	)
+	
 snippet datetime
-	${1:FIELDNAME} = models.DateTimeField(${2:auto_now_add=True, auto_now=True}${3:, blank=True, null=True})
+	${1:FIELDNAME} = models.DateTimeField(
+		${2},
+		${3},
 snippet decimal
 	${1:FIELDNAME} = models.DecimalField(max_digits=${2}, decimal_places=${3})
 snippet email
@@ -43,22 +61,49 @@ snippet posint
 snippet possmallint
 	${1:FIELDNAME} = models.PositiveSmallIntegerField(${2})
 snippet slug
-	${1:FIELDNAME} = models.SlugField(max_length=${2:50}${3:, blank=True})
+	${1:FIELDNAME} = models.SlugField(
+		${2},
+		max_length=${3:255},
+		${4:blank=True},
+	)
+
 snippet smallint
 	${1:FIELDNAME} = models.SmallIntegerField(${2})
 snippet text
-	${1:FIELDNAME} = models.TextField(${2:blank=True})
+	${1:FIELDNAME} = models.TextField(
+		${2:blank=True}
+	)
+
 snippet time
 	${1:FIELDNAME} = models.TimeField(${2:auto_now_add=True, auto_now=True}${3:, blank=True, null=True})
 snippet url
-	${1:FIELDNAME} = models.URLField(${2:verify_exists=False}${3:, max_length=200}${4:, blank=True})
+	${1:FIELDNAME} = models.URLField(
+		${2:verify_exists=False}
+		${3:, max_length=200}
+		${4:, blank=True}
+	)
+snippet html
+	${1:FIELDNAME} = tinymce_models.HTMLField(
+		${2},
+		${3:blank=True},
+	)
+	
 snippet xml
 	${1:FIELDNAME} = models.XMLField(schema_path=${2:None}${3:, blank=True})
 # Relational Fields
 snippet fk
-	${1:FIELDNAME} = models.ForeignKey(${2:OtherModel}${3:, related_name=''}${4:, limit_choices_to=}${5:, to_field=''})
+	${1:FIELDNAME} = models.ForeignKey(
+		${2:OtherModel},
+		${3:blank=True,}
+		${4:null=True,}
+		${5:related_name='',}
+	)
 snippet m2m
-	${1:FIELDNAME} = models.ManyToManyField(${2:OtherModel}${3:, related_name=''}${4:, limit_choices_to=}${5:, symmetrical=False}${6:, through=''}${7:, db_table=''})
+	${1:FIELDNAME} = models.ManyToManyField(
+		${2:OtherModel},
+		related_name='${3:}',
+		${4:blank=True,}
+	)
 snippet o2o
 	${1:FIELDNAME} = models.OneToOneField(${2:OtherModel}${3:, parent_link=True}${4:, related_name=''}${5:, limit_choices_to=}${6:, to_field=''})
 
@@ -71,15 +116,17 @@ snippet form
 
 snippet model
 	class ${1:ModelName}(models.Model):
-		"""${2:docstring}"""
+		"""
+		${2:docstring}
+		"""
 		${3}
-		
+
 		class Meta:
 			${4}
-		
+
 		def __unicode__(self):
 			${5}
-		
+
 		def save(self, force_insert=False, force_update=False):
 			${6}
 		
@@ -106,3 +153,13 @@ snippet r2r
 			${2}
 		}${3:, context_instance=RequestContext(request)}
 	)
+
+snippet log
+	logging.debug(${1})
+
+
+snippet doc
+	"""
+	${1}
+	"""
+
